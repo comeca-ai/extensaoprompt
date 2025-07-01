@@ -1,0 +1,532 @@
+/* Importação de Fontes (Exemplo com Google Fonts - Inter, similar à da imagem) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Variáveis de Cor (baseado em Esquema de Design MeuPrompt.png) */
+:root {
+    --primary-color: #0366F1; /* Indigo 500 */
+    --primary-color-dark: #0252CC; /* Um pouco mais escuro para hover */
+    --neutral-white: #FFFFFF;
+    --neutral-light-gray: #F1F3F6; /* Usado para backgrounds de itens hover/active e bordas claras */
+    --neutral-gray: #E1E3EF;    /* Usado para bordas e divisórias */
+    --neutral-medium-gray: #D1D5DB; /* Para bordas de input como no design de edição */
+    --neutral-dark-gray: #6B7280; /* Texto secundário/caption (Dark Gray do esquema é #4A4A4A, este é um pouco mais claro) */
+    --text-color: #1F2937; /* Texto principal (preto/cinza bem escuro) */
+    --text-color-light: var(--neutral-dark-gray); /* Texto mais claro */
+
+    --sidebar-bg: var(--neutral-white); /* Sidebar branca como na Tela Principal */
+    --body-bg: var(--neutral-light-gray); /* Fundo geral da área de conteúdo principal */
+    --card-bg: var(--neutral-white);
+    --input-bg: var(--neutral-white);
+
+    --border-color: var(--neutral-gray);
+    --border-radius: 6px; /* Design parece usar 6px para cards e botões */
+    --card-shadow: 0px 1px 2px rgba(0, 0, 0, 0.06), 0px 1px 3px rgba(0, 0, 0, 0.1); /* Sombra sutil para cards */
+    --card-hover-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+    --font-family-sans-serif: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+    --spacing-xs: 4px;
+    --spacing-s: 8px;
+    --spacing-m: 12px; /* Ajustado para ser um pouco menor que 16px */
+    --spacing-l: 16px; /* Ajustado */
+    --spacing-xl: 24px; /* Ajustado */
+    --spacing-xxl: 32px;
+}
+
+/* Reset Básico e Configurações Globais */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family-sans-serif);
+    background-color: var(--body-bg); /* Fundo da extensão inteira */
+    color: var(--text-color);
+    font-size: 14px;
+    min-width: 700px;
+    min-height: 500px;
+    overflow: hidden;
+}
+
+.container { /* Para popup.html */
+    display: flex;
+    height: 100vh;
+}
+
+/* Barra Lateral */
+.sidebar {
+    width: 250px; /* Um pouco mais larga */
+    background-color: var(--sidebar-bg);
+    padding: var(--spacing-l) var(--spacing-m); /* Ajustado padding */
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--border-color);
+}
+
+.sidebar .logo {
+    font-size: 20px; /* "MeuPrompt" parece um pouco menor que H1 */
+    font-weight: 600; /* Semi-bold */
+    color: var(--text-color); /* Preto no design */
+    margin-bottom: var(--spacing-xl);
+    padding-left: var(--spacing-s);
+    /* Adicionar o ícone M aqui se for uma imagem */
+}
+
+.folder-nav ul {
+    list-style: none;
+    margin-bottom: var(--spacing-l);
+}
+
+.folder-nav li {
+    padding: var(--spacing-m); /* Padding uniforme */
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    margin-bottom: var(--spacing-xs); /* Espaçamento menor entre itens */
+    font-weight: 500; /* Medium */
+    color: var(--text-color-light);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.folder-nav li .folder-name {
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: var(--spacing-s);
+}
+
+.folder-nav li img { /* Estilo para ícone da pasta, se usado */
+    margin-right: var(--spacing-m);
+    width: 16px;
+    height: 16px;
+    opacity: 0.7; /* Ícones da sidebar são mais sutis */
+}
+
+.folder-nav li:hover {
+    background-color: var(--neutral-light-gray);
+    color: var(--text-color); /* Texto fica mais escuro no hover */
+}
+.folder-nav li:hover .folder-actions {
+    opacity: 1;
+}
+
+.folder-nav li.active {
+    background-color: var(--neutral-light-gray); /* Fundo ativo é o light gray */
+    color: var(--primary-color); /* Texto azul no ativo */
+    font-weight: 600; /* Semi-bold */
+}
+.folder-nav li.active img {
+    opacity: 1; /* Ícone mais forte no ativo */
+    /* Se o ícone for SVG, podemos mudar o 'fill' para var(--primary-color) */
+}
+
+.folder-actions {
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.15s ease-in-out;
+}
+.folder-nav li:hover .folder-actions,
+.folder-nav li .folder-actions:focus-within {
+    opacity: 1;
+}
+
+.btn-icon-folder {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--spacing-xs);
+    margin-left: var(--spacing-xs);
+    font-size: 14px;
+    line-height: 1;
+    color: var(--text-color-light);
+    transition: color 0.15s ease-in-out;
+}
+.btn-icon-folder:hover {
+    color: var(--primary-color);
+}
+
+.btn-new-folder {
+    background-color: transparent;
+    color: var(--text-color-light);
+    border: 1px solid transparent; /* Sem borda visível inicialmente */
+    padding: var(--spacing-m);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    text-align: left; /* Alinhado à esquerda */
+    font-weight: 500;
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */ /* Não mais centralizado */
+    transition: all 0.15s ease-in-out;
+}
+.btn-new-folder img { /* Placeholder para o ícone '+' */
+    margin-right: var(--spacing-m);
+    width: 16px;
+    height: 16px;
+    opacity: 0.7;
+    transition: opacity 0.15s ease-in-out;
+}
+.btn-new-folder:hover {
+    background-color: var(--neutral-light-gray);
+    color: var(--text-color);
+}
+.btn-new-folder:hover img {
+    opacity: 1;
+}
+
+/* Conteúdo Principal */
+.main-content {
+    flex-grow: 1;
+    padding: var(--spacing-xl); /* Maior padding na área principal */
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    background-color: var(--body-bg);
+}
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+.search-bar {
+    flex-grow: 1;
+    margin-right: var(--spacing-l); /* Ajustado */
+    position: relative;
+}
+.search-bar input[type="text"] {
+    width: 100%;
+    padding: var(--spacing-m) var(--spacing-l); /* Ajustado */
+    border: 1px solid var(--neutral-medium-gray); /* Borda como na tela de edição */
+    border-radius: var(--border-radius);
+    font-size: 14px;
+    padding-left: 36px; /* Espaço para ícone */
+    background-color: var(--input-bg);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.search-bar::before { /* Ícone de busca */
+    content: ""; /* Usar background-image para SVG */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'%3E%3C/line%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    opacity: 0.8;
+}
+.search-bar input[type="text"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(3, 102, 241, 0.2); /* Sombra de foco azul */
+}
+
+/* Botões */
+.btn, .btn-primary, .btn-secondary { /* Classe base para botões e específicas */
+    border: none;
+    padding: var(--spacing-m) var(--spacing-l);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 500; /* Medium */
+    font-size: 14px;
+    display: inline-flex; /* Para alinhar ícone e texto */
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, color 0.15s ease-in-out;
+    line-height: 1.2; /* Para melhor alinhamento vertical do texto */
+}
+.btn img, .btn svg,
+.btn-primary img, .btn-primary svg,
+.btn-secondary img, .btn-secondary svg { /* Para ícones dentro de botões */
+    margin-right: var(--spacing-s);
+    width: 16px;
+    height: 16px;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--neutral-white);
+}
+.btn-primary:hover {
+    background-color: var(--primary-color-dark);
+}
+.btn-primary img, .btn-primary svg { /* Ícones em botões primários */
+    filter: brightness(0) invert(1); /* Se for PNG escuro */
+    /* Se for SVG: fill: var(--neutral-white); */
+}
+
+.btn-secondary {
+    background-color: var(--neutral-white);
+    color: var(--text-color);
+    border: 1px solid var(--neutral-medium-gray);
+}
+.btn-secondary:hover {
+    background-color: var(--neutral-light-gray);
+    border-color: var(--neutral-dark-gray);
+}
+
+
+/* Grid de Prompts */
+.prompts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Cards um pouco menores */
+    gap: var(--spacing-l);
+}
+.prompts-grid .empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: var(--spacing-xxl) var(--spacing-xl); /* Mais padding */
+    color: var(--text-color-light);
+    font-size: 16px;
+}
+
+.prompt-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-l);
+    box-shadow: var(--card-shadow);
+    transition: box-shadow 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    display: flex;
+    flex-direction: column;
+}
+.prompt-card:hover {
+    box-shadow: var(--card-hover-shadow);
+    border-color: var(--neutral-medium-gray);
+}
+.prompt-card.selected { /* Não implementado no JS ainda, mas estilo pronto */
+    border-color: var(--primary-color) !important; /* Força a borda azul */
+    box-shadow: 0 0 0 1px var(--primary-color), var(--card-hover-shadow); /* Adiciona anel azul */
+}
+
+.prompt-title {
+    font-size: 16px; /* "Heading 2" do esquema de design é maior, mas no card parece menor */
+    font-weight: 600; /* Semi-bold */
+    color: var(--text-color);
+    margin-bottom: var(--spacing-s);
+    line-height: 1.4;
+}
+.prompt-content {
+    font-size: 14px;
+    color: var(--text-color-light);
+    margin-bottom: var(--spacing-l); /* Mais espaço antes das tags/ações */
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Aumentar para 3 linhas, parece ter mais espaço no design */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: calc(1.5em * 3); /* 3 linhas */
+    flex-grow: 1;
+}
+
+.prompt-tags {
+    margin-bottom: var(--spacing-l);
+}
+.tag {
+    background-color: #E0E7FF; /* Azul bem claro para tag (cor de fundo de "Productivity") */
+    color: #3730A3; /* Azul escuro para texto da tag (cor de texto de "Productivity") */
+    padding: var(--spacing-xs) var(--spacing-s);
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-right: var(--spacing-s);
+    margin-bottom: var(--spacing-xs); /* Para wrap */
+    display: inline-block;
+    line-height: 1.4;
+}
+/* Exemplo de outra cor de tag (Idea) */
+.tag.idea { /* Adicionar classe 'idea' no JS se a tag for 'Idea' */
+    background-color: #FEF3C7; /* Amarelo claro */
+    color: #92400E; /* Amarelo escuro/marrom */
+}
+
+
+.prompt-actions {
+    display: flex;
+    /* justify-content: flex-end; -> Ícones de ação no design estão à esquerda e direita */
+    justify-content: space-between; /* Para favorito à esquerda, outros à direita */
+    align-items: center;
+    margin-top: var(--spacing-s);
+}
+.prompt-actions .action-group-right {
+    display: flex;
+    align-items: center;
+}
+
+.btn-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--spacing-s);
+    opacity: 0.7;
+    transition: opacity 0.15s ease-in-out, background-color 0.15s ease-in-out;
+    border-radius: var(--border-radius);
+    color: var(--text-color-light); /* Para SVGs herdarem a cor */
+}
+.btn-icon:hover {
+    opacity: 1;
+    background-color: var(--neutral-light-gray);
+    color: var(--text-color);
+}
+.btn-icon img, .btn-icon svg { /* Ícones de ação */
+    width: 16px; /* Reduzido para 16px */
+    height: 16px;
+    display: block;
+}
+/* Específico para o botão de favorito que pode estar à esquerda */
+.btn-icon.btn-favorite {
+    margin-left: 0;
+    /* margin-right: auto; -> Não necessário com justify-content: space-between */
+}
+.action-group-right .btn-icon { /* Botões do grupo da direita */
+    margin-left: var(--spacing-xs); /* Espaçamento menor entre ícones de ação */
+}
+
+
+/* Estilos para a Página de Gerenciamento de Prompt (manage_prompt.html) */
+.manage-prompt-page { /* Body da página de edição */
+    min-width: auto; /* Não precisa de min-width, vai se adaptar ao popup */
+    min-height: 100vh;
+    background-color: var(--neutral-white);
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+.manage-prompt-container { /* Container principal da página de edição */
+    width: 100%;
+    max-width: 100%; /* Ocupa toda a largura disponível no popup */
+    background-color: var(--neutral-white);
+    padding: var(--spacing-xl) var(--spacing-l);
+    border-radius: 0;
+    box-shadow: none;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.manage-prompt-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--spacing-xl);
+}
+.manage-prompt-header h1 { /* "Novo Prompt" / "Editar Prompt" */
+    font-size: 18px; /* Menor, como um H2 */
+    font-weight: 600; /* Semi-bold */
+    color: var(--text-color);
+    margin: 0;
+    flex-grow: 1;
+    text-align: left;
+    margin-left: var(--spacing-m);
+}
+
+.btn-back { /* Botão de seta para voltar */
+    background: none;
+    border: none;
+    color: var(--text-color-light);
+    font-size: 24px; /* Tamanho da seta */
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    transition: color 0.15s ease-in-out;
+}
+.btn-back:hover {
+    color: var(--primary-color);
+}
+
+#prompt-form {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+#prompt-form .form-group {
+    margin-bottom: var(--spacing-l);
+}
+#prompt-form label {
+    display: block;
+    font-weight: 500;
+    color: var(--text-color);
+    margin-bottom: var(--spacing-s);
+    font-size: 14px;
+}
+#prompt-form input[type="text"],
+#prompt-form textarea,
+#prompt-form select {
+    width: 100%;
+    padding: var(--spacing-m);
+    border: 1px solid var(--neutral-medium-gray);
+    border-radius: var(--border-radius);
+    font-size: 14px;
+    font-family: var(--font-family-sans-serif);
+    background-color: var(--input-bg);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+#prompt-form input[type="text"]:focus,
+#prompt-form textarea:focus,
+#prompt-form select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(3, 102, 241, 0.2);
+}
+#prompt-form textarea {
+    resize: vertical;
+    min-height: 120px;
+    flex-grow: 1; /* Ocupa o espaço vertical disponível */
+}
+#prompt-form .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-m);
+    margin-top: auto;
+    padding-top: var(--spacing-xl); /* Mais espaço acima dos botões */
+    border-top: 1px solid var(--border-color); /* Linha divisória como no design */
+}
+
+/* Scrollbar customizada (Webkit) */
+::-webkit-scrollbar {
+    width: 10px; /* Um pouco mais larga */
+    height: 10px;
+}
+::-webkit-scrollbar-track {
+    background: transparent; /* Track transparente */
+}
+::-webkit-scrollbar-thumb {
+    background: var(--neutral-gray);
+    border-radius: var(--border-radius);
+    border: 2px solid var(--body-bg); /* Borda da cor do fundo para efeito de "espaçamento" */
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--neutral-dark-gray);
+}
+
+/* Ajustes Finais */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+}
+
+/* TODO:
+    - ÍCONES: Substituir placeholders de <img> e emojis por SVGs consistentes.
+        - Barra lateral: All Prompts, Favorites, Pastas (ícone de pasta), Novo Folder (+).
+        - Header: Novo Prompt (+).
+        - Card de Prompt: Copiar, Editar, Excluir, Favorito (preenchido/vazio).
+        - Input de Busca: Lupa (SVG inline adicionado, verificar se está ok).
+        - Botão Voltar: Seta para esquerda.
+    - DROPDOWN (<select>): Estilizar o select de pastas na tela de edição é complexo.
+      Uma solução mais robusta usaria um componente customizado de dropdown (JS).
+      Por ora, o estilo padrão do navegador será aplicado.
+    - TAGS: Implementar as diferentes cores de tags (ex: 'Idea' amarela) com base no texto da tag no JS.
+      (Adicionei uma classe .tag.idea como exemplo).
+    - RESPONSIVIDADE: Embora seja um popup, verificar se o layout se adapta bem a larguras ligeiramente diferentes.
+*/

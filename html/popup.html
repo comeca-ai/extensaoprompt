@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeuPrompt</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Barra Lateral -->
+        <aside class="sidebar">
+            <div class="logo">MeuPrompt</div>
+            <nav class="folder-nav">
+                <ul>
+                    <li class="active" data-folder-id="all"><img src="../icons/icon_all_prompts.png" alt="" /> All Prompts</li>
+                    <li data-folder-id="favorites"><img src="../icons/icon_favorites.png" alt="" /> Favorites</li>
+                    {/* Pastas do usuário serão inseridas aqui via JS */}
+                </ul>
+            </nav>
+            <button class="btn-new-folder"><img src="../icons/icon_add_folder.png" alt="" /> New Folder</button>
+        </aside>
+
+        <!-- Conteúdo Principal -->
+        <main class="main-content">
+            <header class="main-header">
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder="Search">
+                    {/* Ícone de busca pode ser adicionado aqui */}
+                </div>
+                <button class="btn-primary btn-new-prompt">
+                    <img src="../icons/icon_add.png" alt="" /> Novo Prompt
+                </button>
+            </header>
+
+            <section class="prompts-grid" id="prompts-grid">
+                {/* Cards de Prompt serão inseridos aqui via JS */}
+                <!-- Exemplo de Card de Prompt (para referência de estilo) -->
+                <div class="prompt-card">
+                    <h3 class="prompt-title">Write an Email</h3>
+                    <p class="prompt-content">Compose an email a colleague.</p>
+                    <div class="prompt-tags">
+                        <span class="tag">Productivity</span>
+                    </div>
+                    <div class="prompt-actions">
+                        <button class="btn-icon btn-copy"><img src="../icons/icon_copy.png" alt="Copy" /></button>
+                        <button class="btn-icon btn-edit"><img src="../icons/icon_edit.png" alt="Edit" /></button>
+                        <button class="btn-icon btn-delete"><img src="../icons/icon_delete.png" alt="Delete" /></button>
+                    </div>
+                </div>
+                 <div class="prompt-card">
+                    <h3 class="prompt-title">Brainstorming Ideas</h3>
+                    <p class="prompt-content">Generate ideas for a new project.</p>
+                    <div class="prompt-tags">
+                        <span class="tag">Idea</span>
+                    </div>
+                    <div class="prompt-actions">
+                        <button class="btn-icon btn-copy"><img src="../icons/icon_copy.png" alt="Copy" /></button>
+                        <button class="btn-icon btn-edit"><img src="../icons/icon_edit.png" alt="Edit" /></button>
+                        <button class="btn-icon btn-delete"><img src="../icons/icon_delete.png" alt="Delete" /></button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="../js/storage.js"></script>
+    <script src="../js/popup.js"></script>
+</body>
+</html>
