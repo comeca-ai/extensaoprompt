@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Prompt - MeuPrompt</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="manage-prompt-page">
+    <div class="manage-prompt-container">
+        <header class="manage-prompt-header">
+            <button class="btn-back" id="btn-back">&larr; Voltar</button>
+            <h1 id="manage-prompt-title">Novo Prompt</h1>
+        </header>
+
+        <form id="prompt-form">
+            <div class="form-group">
+                <label for="prompt-title-input">Título</label>
+                <input type="text" id="prompt-title-input" name="title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="prompt-content-input">Conteúdo</label>
+                <textarea id="prompt-content-input" name="content" rows="8" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="prompt-folder-select">Pasta</label>
+                <select id="prompt-folder-select" name="folderId">
+                    <option value="">Nenhuma (All Prompts)</option>
+                    {/* Opções de pasta serão carregadas aqui via JS */}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="prompt-tags-input">Tags (separadas por vírgula)</label>
+                <input type="text" id="prompt-tags-input" name="tags">
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn-secondary" id="btn-cancel">Cancelar</button>
+                <button type="submit" class="btn-primary" id="btn-save-prompt">Salvar</button>
+            </div>
+        </form>
+    </div>
+    <script src="../js/storage.js"></script>
+    <script src="../js/manage_prompt.js"></script>
+</body>
+</html>
